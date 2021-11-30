@@ -10,9 +10,13 @@ public class Third_Person_Dash : MonoBehaviour
 
     public float dashspeed;
     public float dashtime;
+    private bool airDash;
+    public float dashcooldown = 60f;
+    private float dashdefaultcooldown;
 
     private void Awake()
     {
+        dashdefaultcooldown = dashcooldown;
         pInput = new Player_Controls();
         pInput.Player.Dash.started += _ => StartCoroutine(Dash());
     }
@@ -31,15 +35,39 @@ public class Third_Person_Dash : MonoBehaviour
         pInput.Player.Disable();
     }
 
+    private void Update()
+    {
+        if(movescript.isGrounded == true && airDash != true)
+        {
+            airDash = true;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        dashcooldown--;
+    }
+
     IEnumerator Dash()
     {
-        float starttime = Time.time;
-
-        while(Time.time < starttime + dashtime)
+        if (dashcooldown <= 0)
         {
-            movescript.controller.Move(movescript.moveDir * dashspeed * Time.deltaTime);
+            if (movescript.isGrounded == true || airDash == true)
+            {
+                float starttime = Time.time;
 
-            yield return null;
+                while (Time.time < starttime + dashtime)
+                {
+                    movescript.velocity.y = 0;
+                    movescript.controller.Move(movescript.moveDir * dashspeed * Time.deltaTime);
+
+                    airDash = false;
+                    dashcooldown = dashdefaultcooldown;
+                    movescript.currentspeed = movescript.runspeed;
+                    yield return null;
+                }
+            }
+            else { yield return null; }
         }
     }
 }
