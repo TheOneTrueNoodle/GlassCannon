@@ -36,7 +36,7 @@ public class Third_Person_Movement : MonoBehaviour
     {
         currentspeed = walkspeed;
         pInput = new Player_Controls();
-        pInput.Player.Jump.started += _ => Jump();
+        pInput.Player.Jump.performed += _ => Jump();
     }
 
     private void OnEnable()

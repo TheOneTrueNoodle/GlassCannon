@@ -18,7 +18,7 @@ public class Third_Person_Dash : MonoBehaviour
     {
         dashdefaultcooldown = dashcooldown;
         pInput = new Player_Controls();
-        pInput.Player.Dash.started += _ => StartCoroutine(Dash());
+        pInput.Player.Dash.performed += _ => StartCoroutine(Dash());
     }
 
     private void Start()
