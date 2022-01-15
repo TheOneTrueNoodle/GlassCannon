@@ -40,15 +40,15 @@ public class @Player_Controls : IInputActionCollection, IDisposable
                     ""id"": ""d48202ef-214b-46b6-8bc7-298466e9c8b4"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Press(behavior=1)""
+                    ""interactions"": ""Press""
                 },
                 {
-                    ""name"": ""DashToSprint"",
+                    ""name"": ""Sprint"",
                     ""type"": ""Button"",
-                    ""id"": ""898d3626-fbd0-441d-8c6a-38b7f3e2ed76"",
+                    ""id"": ""f7118654-b1b9-47e9-a34b-97a6e264c97f"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Hold""
+                    ""interactions"": ""Hold(duration=0.2)""
                 },
                 {
                     ""name"": ""Primary Attack"",
@@ -334,56 +334,56 @@ public class @Player_Controls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""988633f4-8e44-486d-9f25-0aeb4013b93b"",
+                    ""id"": ""f61c5449-d834-41ff-b045-95b2d2a91161"",
                     ""path"": ""<Gamepad>/rightTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
-                    ""action"": ""DashToSprint"",
+                    ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""78f66737-d29d-4647-af2e-78a93907a5fb"",
+                    ""id"": ""9b228cd5-131f-4046-872e-ec4c1f8549f9"",
                     ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""DashToSprint"",
+                    ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""0374ae51-d54b-4a00-84f3-501f91cba48d"",
+                    ""id"": ""289f74ab-a79e-401d-8df7-c8f81b996885"",
                     ""path"": ""<Touchscreen>/primaryTouch/tap"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Touch"",
-                    ""action"": ""DashToSprint"",
+                    ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""56d61e9a-ee7d-4f5c-893b-784ceec84523"",
+                    ""id"": ""8f830e39-73df-46f7-8d84-dd44c410ed77"",
                     ""path"": ""<Joystick>/trigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Joystick"",
-                    ""action"": ""DashToSprint"",
+                    ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""05511121-c8cf-4491-a851-11f642e92b1c"",
+                    ""id"": ""a1a1ee43-8278-430d-a1fa-ca1056c671fb"",
                     ""path"": ""<XRController>/{PrimaryAction}"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""XR"",
-                    ""action"": ""DashToSprint"",
+                    ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -964,7 +964,7 @@ public class @Player_Controls : IInputActionCollection, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
-        m_Player_DashToSprint = m_Player.FindAction("DashToSprint", throwIfNotFound: true);
+        m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_PrimaryAttack = m_Player.FindAction("Primary Attack", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         // UI
@@ -1031,7 +1031,7 @@ public class @Player_Controls : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Dash;
-    private readonly InputAction m_Player_DashToSprint;
+    private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_PrimaryAttack;
     private readonly InputAction m_Player_Jump;
     public struct PlayerActions
@@ -1041,7 +1041,7 @@ public class @Player_Controls : IInputActionCollection, IDisposable
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
-        public InputAction @DashToSprint => m_Wrapper.m_Player_DashToSprint;
+        public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputAction @PrimaryAttack => m_Wrapper.m_Player_PrimaryAttack;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -1062,9 +1062,9 @@ public class @Player_Controls : IInputActionCollection, IDisposable
                 @Dash.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
                 @Dash.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
                 @Dash.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
-                @DashToSprint.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDashToSprint;
-                @DashToSprint.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDashToSprint;
-                @DashToSprint.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDashToSprint;
+                @Sprint.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSprint;
+                @Sprint.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSprint;
+                @Sprint.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSprint;
                 @PrimaryAttack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPrimaryAttack;
                 @PrimaryAttack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPrimaryAttack;
                 @PrimaryAttack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPrimaryAttack;
@@ -1084,9 +1084,9 @@ public class @Player_Controls : IInputActionCollection, IDisposable
                 @Dash.started += instance.OnDash;
                 @Dash.performed += instance.OnDash;
                 @Dash.canceled += instance.OnDash;
-                @DashToSprint.started += instance.OnDashToSprint;
-                @DashToSprint.performed += instance.OnDashToSprint;
-                @DashToSprint.canceled += instance.OnDashToSprint;
+                @Sprint.started += instance.OnSprint;
+                @Sprint.performed += instance.OnSprint;
+                @Sprint.canceled += instance.OnSprint;
                 @PrimaryAttack.started += instance.OnPrimaryAttack;
                 @PrimaryAttack.performed += instance.OnPrimaryAttack;
                 @PrimaryAttack.canceled += instance.OnPrimaryAttack;
@@ -1252,7 +1252,7 @@ public class @Player_Controls : IInputActionCollection, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
-        void OnDashToSprint(InputAction.CallbackContext context);
+        void OnSprint(InputAction.CallbackContext context);
         void OnPrimaryAttack(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
     }
