@@ -43,7 +43,7 @@
                     "id": "4471d2c6-820e-4575-b8c7-fbf766907d63",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press"
                 },
                 {
                     "name": "Jump",
@@ -201,7 +201,7 @@
                 {
                     "name": "",
                     "id": "05f6913d-c316-48b2-a6bb-e225f14c7960",
-                    "path": "<Mouse>/rightButton",
+                    "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
@@ -289,7 +289,7 @@
                 {
                     "name": "",
                     "id": "1a69edec-bffa-4a1d-909b-5a1c582aba76",
-                    "path": "<Mouse>/rightButton",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -333,7 +333,7 @@
                 {
                     "name": "",
                     "id": "9b228cd5-131f-4046-872e-ec4c1f8549f9",
-                    "path": "<Mouse>/rightButton",
+                    "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",

@@ -8,11 +8,12 @@ public class Third_Person_Dash : MonoBehaviour
 
     Third_Person_Movement movescript;
 
+    [HideInInspector] public bool isDashing;
     public float dashspeed;
     public float dashtime;
-    private bool airDash;
+    [HideInInspector] public bool airDash;
     public float dashcooldown = 60f;
-    private float dashdefaultcooldown;
+    public float dashdefaultcooldown;
 
     private void Awake()
     {
@@ -55,6 +56,8 @@ public class Third_Person_Dash : MonoBehaviour
         {
             if (movescript.isGrounded == true || airDash == true)
             {
+
+                isDashing = true;
                 float starttime = Time.time;
 
                 while (Time.time < starttime + dashtime)
@@ -62,10 +65,11 @@ public class Third_Person_Dash : MonoBehaviour
                     movescript.velocity.y = 0;
                     movescript.controller.Move(movescript.moveDir * dashspeed * Time.deltaTime);
 
-                    airDash = false;
-                    dashcooldown = dashdefaultcooldown;
                     yield return null;
                 }
+                airDash = false;
+                dashcooldown = dashdefaultcooldown;
+                isDashing = false;
             }
             else { yield return null; }
         }
