@@ -7,6 +7,7 @@ public class Third_Person_Dash : MonoBehaviour
     public Player_Controls pInput;
 
     Third_Person_Movement movescript;
+    Third_Person_Attack attackscript;
 
     [HideInInspector] public bool isDashing;
     public float dashspeed;
@@ -26,6 +27,7 @@ public class Third_Person_Dash : MonoBehaviour
     private void Start()
     {
         movescript = GetComponent<Third_Person_Movement>();
+        attackscript = GetComponent<Third_Person_Attack>();
     }
     private void OnEnable()
     {
@@ -56,14 +58,14 @@ public class Third_Person_Dash : MonoBehaviour
         {
             if (movescript.isGrounded == true || airDash == true)
             {
-
                 isDashing = true;
+                attackscript.AttackCancel();
                 float starttime = Time.time;
 
                 while (Time.time < starttime + dashtime)
                 {
                     movescript.velocity.y = 0;
-                    movescript.controller.Move(movescript.moveDir * dashspeed * Time.deltaTime);
+                    movescript.controller.Move(movescript.moveDir.normalized * dashspeed * Time.deltaTime);
 
                     yield return null;
                 }

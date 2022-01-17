@@ -9,13 +9,16 @@ public class Third_Person_Attack : MonoBehaviour
     Third_Person_Movement movescript;
     Third_Person_Dash dashscript;
 
-    [HideInInspector] public float AttackString = 0;
-    public float MaxAttackString = 3f;
+    [HideInInspector] public int AttackString = 0;
+    private Queue<IEnumerator> AttackQueue = new Queue<IEnumerator>();
+    public int MaxAttackString = 3;
     public float attackTime = 0.15f;
-    public GameObject HitBox;
+    public GameObject[] HitBoxes;
+    public GameObject MidAirHitbox;
     public float damage;
     public float attackLag = 0.15f;
-    [HideInInspector] public bool IsAttacking = false;
+
+    private bool AirAttack;
 
     public void Awake()
     {
@@ -25,9 +28,10 @@ public class Third_Person_Attack : MonoBehaviour
 
     public void Start()
     {
+        StartCoroutine(CoroutineCoordinator());
         movescript = GetComponent<Third_Person_Movement>();
         dashscript = GetComponent<Third_Person_Dash>();
-    }
+}
     private void OnEnable()
     {
         pInput.Player.Enable();
@@ -38,39 +42,84 @@ public class Third_Person_Attack : MonoBehaviour
         pInput.Player.Disable();
     }
 
-    public void resetHitbox()
+    private void FixedUpdate()
     {
-        HitBox.transform.localPosition = new Vector3(0, 0, (float)1.4);
-        HitBox.transform.localScale = new Vector3((float)1.5, (float)1.5, (float)1.5);
-        HitBox.SetActive(false);
+        if(movescript.isGrounded == true)
+        {
+            AirAttack = true;
+        }
     }
 
     private void TriggerAttack()
     {
-        if(IsAttacking != true)
+        if (movescript.isGrounded != true && AirAttack == true)
         {
-            IsAttacking = true;
-            if (dashscript.isDashing == true)
+            AirAttack = false;
+            AttackQueue.Enqueue(MidAirAttack());
+        }
+        else if(movescript.isGrounded == true)
+        {
+            if (AttackString < MaxAttackString)
             {
-                StartCoroutine(DashAttack());
-            }
-            else
-            {
-                StartCoroutine(Attack());
+                if (dashscript.isDashing == true && AttackString == 0)
+                {
+                    AttackQueue.Enqueue(DashAttack(AttackString));
+                }
+                else
+                {
+                    AttackString += 1;
+                    AttackQueue.Enqueue(Attack(AttackString));
+                }
             }
         }
     }
 
-    IEnumerator DashAttack()
+    public void AttackCancel()
+    {
+        if(dashscript.isDashing == true)
+        {
+            StopAllCoroutines();
+            movescript.enabled = true;
+            AttackQueue.Clear();
+            for(int i = 0; i <= MaxAttackString; i++)
+            {
+                HitBoxes[i].SetActive(false);
+            }
+            StartCoroutine(CoroutineCoordinator());
+            AttackCooldown();
+        }
+    }
+
+    public void AttackCooldown()
+    {
+        if (AttackQueue.Count == 0)
+        {
+            movescript.currentspeed = movescript.walkspeed;
+            AttackString = MaxAttackString;
+            AttackQueue.Enqueue(AtkCooldown());
+            AttackString = 0;
+        }
+    }
+
+    IEnumerator CoroutineCoordinator()
+    {
+        while (true)
+        {
+            while (AttackQueue.Count > 0)
+                yield return StartCoroutine(AttackQueue.Dequeue());
+            yield return null;
+        }
+    }
+
+
+    IEnumerator DashAttack(int ThisAttackString)
     {
         movescript.enabled = false;
         movescript.velocity.x = 0;
         movescript.velocity.y = 0;
         movescript.velocity.z = 0;
 
-        HitBox.SetActive(true);
-        HitBox.transform.localPosition = new Vector3(0, 0, 0);
-        HitBox.transform.localScale = new Vector3((float)4, (float)1.5, (float)4);
+        HitBoxes[ThisAttackString].SetActive(true);
 
         float starttime = Time.time;
 
@@ -81,11 +130,10 @@ public class Third_Person_Attack : MonoBehaviour
 
             yield return null;
         }
+        HitBoxes[ThisAttackString].SetActive(false);
         dashscript.airDash = false;
         dashscript.dashcooldown = dashscript.dashdefaultcooldown;
         dashscript.isDashing = false;
-        IsAttacking = false;
-        resetHitbox();
 
         starttime = Time.time;
         while (Time.time < starttime + attackLag)
@@ -93,26 +141,24 @@ public class Third_Person_Attack : MonoBehaviour
             yield return null;
         }
         movescript.enabled = true;
+        AttackCooldown();
     }
 
-    IEnumerator Attack()
+    IEnumerator Attack(int ThisAttackString)
     {
         movescript.enabled = false;
         movescript.velocity.x = 0;
         movescript.velocity.y = 0;
         movescript.velocity.z = 0;
 
-        HitBox.SetActive(true);
-        HitBox.transform.localPosition = new Vector3(0, 0, (float)1.4);
-        HitBox.transform.localScale = new Vector3((float)1.5, (float)1.5, (float)1.5);
+        HitBoxes[ThisAttackString].SetActive(true);
 
         float starttime = Time.time;
         while (Time.time < starttime + attackTime)
         {
             yield return null;
         }
-        IsAttacking = false;
-        resetHitbox();
+        HitBoxes[ThisAttackString].SetActive(false);
 
         starttime = Time.time;
         while (Time.time < starttime + attackLag)
@@ -120,5 +166,34 @@ public class Third_Person_Attack : MonoBehaviour
             yield return null;
         }
         movescript.enabled = true;
+        AttackCooldown();
+    }
+
+    IEnumerator MidAirAttack()
+    {
+        MidAirHitbox.SetActive(true);
+
+        float starttime = Time.time;
+        while (Time.time < starttime + attackTime)
+        {
+            yield return null;
+        }
+        MidAirHitbox.SetActive(false);
+
+        starttime = Time.time;
+        while (Time.time < starttime + attackLag)
+        {
+            yield return null;
+        }
+        AttackCooldown();
+    }
+
+    IEnumerator AtkCooldown()
+    {
+        float starttime = Time.time;
+        while (Time.time < starttime + attackLag * 2)
+        {
+            yield return null;
+        }
     }
 }
