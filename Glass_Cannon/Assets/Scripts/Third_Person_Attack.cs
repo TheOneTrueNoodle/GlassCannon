@@ -123,17 +123,11 @@ public class Third_Person_Attack : MonoBehaviour
 
         float starttime = Time.time;
 
-        while (Time.time < starttime + dashscript.dashtime)
+        while (Time.time < starttime + attackTime)
         {
-            movescript.velocity.y = 0;
-            movescript.controller.Move(movescript.moveDir * dashscript.dashspeed * Time.deltaTime);
-
             yield return null;
         }
         HitBoxes[ThisAttackString].SetActive(false);
-        dashscript.airDash = false;
-        dashscript.dashcooldown = dashscript.dashdefaultcooldown;
-        dashscript.isDashing = false;
 
         starttime = Time.time;
         while (Time.time < starttime + attackLag)
