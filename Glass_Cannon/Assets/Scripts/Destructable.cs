@@ -8,7 +8,8 @@ public class Destructable : MonoBehaviour
 
     public void breakObject()
     {
-        Instantiate(destroyedVersion, transform.position, transform.rotation);
+        GameObject NewObj = Instantiate(destroyedVersion, transform.position, transform.rotation);
+        NewObj.transform.localScale = gameObject.transform.localScale;
         Destroy(gameObject);
     }
 }
