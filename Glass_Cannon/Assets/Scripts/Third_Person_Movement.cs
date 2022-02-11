@@ -32,6 +32,24 @@ public class Third_Person_Movement : MonoBehaviour
     public float turnSmoothTime = 0.1f;
     private float turnSmoothVelocity;
 
+    //Variables for Animation
+    public Animator anim;
+    public float allowPlayerRotation = 0.1f;
+    [Header("Animation Smoothing")]
+    [Range(0, 1f)]
+    public float HorizontalAnimSmoothTime = 0.2f;
+    [Range(0, 1f)]
+    public float VerticalAnimTime = 0.2f;
+    [Range(0, 1f)]
+    public float StartAnimTime = 0.3f;
+    [Range(0, 1f)]
+    public float StopAnimTime = 0.15f;
+
+    public bool blockRotationPlayer;
+    public float desiredRotationSpeed = 0.1f;
+    [HideInInspector]
+    public float moveSpeed;
+
     private void Awake()
     {
         currentspeed = walkspeed;
@@ -56,6 +74,15 @@ public class Third_Person_Movement : MonoBehaviour
         {
             currentspeed = walkspeed;
         }
+
+        if(anim.GetCurrentAnimatorStateInfo(0).IsName("Falling To Landing 0"))
+        {
+            OnDisable();
+        }
+        else
+        {
+            OnEnable();
+        }
     }
 
     private void Movement()
@@ -67,6 +94,13 @@ public class Third_Person_Movement : MonoBehaviour
             velocity.y = -2f;
         }
 
+        anim.SetBool("isGrounded", isGrounded);
+
+        if(isGrounded == true && velocity.y < 0)
+        {
+            anim.ResetTrigger("TriggerJump");
+        }
+
         MoveInput = pInput.Player.Move.ReadValue<Vector2>();
         Vector3 Direction = new Vector3(MoveInput.x, 0f, MoveInput.y).normalized;
 
@@ -74,7 +108,7 @@ public class Third_Person_Movement : MonoBehaviour
         {
             float targetAngle = Mathf.Atan2(Direction.x, Direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+            //transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
             moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             controller.Move(moveDir.normalized * (currentspeed * Time.deltaTime));
@@ -82,6 +116,33 @@ public class Third_Person_Movement : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+
+        if(currentspeed != runspeed)
+        {
+            moveSpeed = Direction.magnitude * 0.5f;
+        }
+        else
+        {
+            moveSpeed = Direction.magnitude;
+        }
+
+        if (currentspeed > allowPlayerRotation)
+        {
+            anim.SetFloat("Blend", moveSpeed, StartAnimTime, Time.deltaTime);
+            PlayerMoveAndRotation();
+        }
+        else if (currentspeed < allowPlayerRotation)
+        {
+            anim.SetFloat("Blend", moveSpeed, StopAnimTime, Time.deltaTime);
+        }
+    }
+
+    public void PlayerMoveAndRotation()
+    {
+        if (blockRotationPlayer == false)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDir), desiredRotationSpeed);
+        }
     }
 
     private void Jump()
@@ -89,6 +150,7 @@ public class Third_Person_Movement : MonoBehaviour
         if (isGrounded == true)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            anim.SetTrigger("TriggerJump");
         }
     }
 
