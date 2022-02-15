@@ -22,6 +22,7 @@ public class Third_Person_Dash : MonoBehaviour
         pInput = new Player_Controls();
         pInput.Player.Dash.performed += _ => StartCoroutine(Dash());
         pInput.Player.Sprint.performed += _ => Sprint();
+        pInput.Player.ToggleSprint.performed += _ => Sprint();
     }
 
     private void Start()
