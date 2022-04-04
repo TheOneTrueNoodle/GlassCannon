@@ -85,6 +85,8 @@ public class Third_Person_Movement : MonoBehaviour
         }
     }
 
+    #region MOVEMENT
+
     private void Movement()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
@@ -145,6 +147,8 @@ public class Third_Person_Movement : MonoBehaviour
         }
     }
 
+    #endregion
+    #region JUMP
     private void Jump()
     {
         if (isGrounded == true)
@@ -153,6 +157,7 @@ public class Third_Person_Movement : MonoBehaviour
             anim.SetTrigger("TriggerJump");
         }
     }
+    #endregion
 
     private void speedManager()
     {
