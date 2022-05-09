@@ -21,6 +21,9 @@ public class SaveManager : MonoBehaviour
     const string FILE_NAME = "SaveStatus.json";
     private Player PlayerData;
 
+    public GameObject DeathUI;
+    public GameObject PauseUI;
+
     public void LoadGameStatus ()
     {
         if (File.Exists (filePath + "/" + FILE_NAME))
@@ -28,14 +31,39 @@ public class SaveManager : MonoBehaviour
             string loadedJson = File.ReadAllText(filePath + "/" + FILE_NAME);
             gameStatus = JsonUtility.FromJson<GameStatus>(loadedJson);
             GameObject.FindGameObjectWithTag("Player").transform.position = gameStatus.Position;
+            if (DeathUI.activeInHierarchy)
+            {
+                Time.timeScale = 1;
+                DeathUI.SetActive(false);
+            }
+            if (PauseUI.activeInHierarchy)
+            {
+                Time.timeScale = 1;
+                PauseUI.SetActive(false);
+            }
         }
         else
         {
             gameStatus.MaxHealth = 20;
+            gameStatus.CurrentHP = 20;
             gameStatus.MinDamage = 5;
             gameStatus.MinDamage = 7;
             gameStatus.Position = new Vector3(0, 0, 0);
         }
+    }
+
+    public void ResetGameStatus ()
+    {
+        Debug.Log("Reset");
+
+        gameStatus.MaxHealth = 20;
+        gameStatus.CurrentHP = 20;
+        gameStatus.MinDamage = 5;
+        gameStatus.MinDamage = 7;
+        gameStatus.Position = new Vector3(0, 0, 0);
+
+        SaveGameStatus();
+        LoadGameStatus();
     }
 
     public void SaveGameStatus ()

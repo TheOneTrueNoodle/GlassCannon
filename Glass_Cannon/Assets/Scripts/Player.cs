@@ -9,8 +9,11 @@ public class Player : MonoBehaviour
     public int MinDamage = 5;
     public int MaxDamage = 7;
     public Vector3 Position;
+    public HealthBar healthBar;
 
     public Hitbox_Detection[] HitBoxes;
+
+    public GameObject DeathUI;
 
     private void Start()
     {
@@ -26,7 +29,13 @@ public class Player : MonoBehaviour
     {
         Position = gameObject.transform.position;
 
-        
+        healthBar.SetHealth((int)CurrentHP, (int)MaxHealth);
+
+        if(CurrentHP <= 0)
+        {
+            Time.timeScale = 0;
+            DeathUI.SetActive(true);
+        }
     }
 
     public void TakeDamage(int Damage)

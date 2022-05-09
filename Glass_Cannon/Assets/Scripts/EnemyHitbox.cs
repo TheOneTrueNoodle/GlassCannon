@@ -10,10 +10,11 @@ public class EnemyHitbox : MonoBehaviour
     public bool DealtDamage;
 
     public int CurrentDamage;
+    public bool IsAttacking;
 
     private void OnTriggerEnter(Collider col)
     {
-        if(col.gameObject.CompareTag("Player") && DealtDamage == false)
+        if(col.gameObject.CompareTag("Player") && DealtDamage == false && IsAttacking == true)
         {
             DealDamage(col.gameObject);
         }

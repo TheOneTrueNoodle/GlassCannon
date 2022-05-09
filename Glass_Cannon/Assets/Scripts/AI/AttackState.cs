@@ -9,6 +9,9 @@ public class AttackState : State
 
     public EnemyStats Stats;
     public GameObject Hitbox;
+    public GameObject DangerArea;
+
+    public float attackWindup = 0.25f;
     public float attackTime = 0.15f;
     public float attackLag = 1f;
     private bool IsAttacking = false;
@@ -47,6 +50,8 @@ public class AttackState : State
     private void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
+        DangerArea.SetActive(false);
+        Hitbox.SetActive(false);
     }
 
     public void RunState()
@@ -64,13 +69,29 @@ public class AttackState : State
         IsAttacking = true;
         Vector3 pointToLook = Player.transform.position;
         ParentTransform.LookAt(pointToLook);
-        Hitbox.SetActive(true);
 
+        DangerArea.SetActive(true);
         float starttime = Time.time;
+        while (Time.time < starttime + attackWindup)
+        {
+            yield return null;
+        }
+        DangerArea.SetActive(false);
+
+        starttime = Time.time;
+        while (Time.time < starttime + 0.1f)
+        {
+            yield return null;
+        }
+
+        Hitbox.SetActive(true);
+        Hitbox.GetComponent<EnemyHitbox>().IsAttacking = true;
+        starttime = Time.time;
         while (Time.time < starttime + attackTime)
         {
             yield return null;
         }
+        Hitbox.GetComponent<EnemyHitbox>().IsAttacking = false;
         Hitbox.SetActive(false);
         Hitbox.GetComponent<EnemyHitbox>().DealtDamage = false;
 
