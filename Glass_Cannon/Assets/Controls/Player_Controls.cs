@@ -73,6 +73,14 @@ public class @Player_Controls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""72efaaf9-9087-4fb9-a6e6-6ae57f579f96"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -403,6 +411,17 @@ public class @Player_Controls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""ToggleSprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""576319f8-5de8-4af2-ab43-7b5a343874c4"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -987,6 +1006,7 @@ public class @Player_Controls : IInputActionCollection, IDisposable
         m_Player_PrimaryAttack = m_Player.FindAction("Primary Attack", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_ToggleSprint = m_Player.FindAction("ToggleSprint", throwIfNotFound: true);
+        m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1055,6 +1075,7 @@ public class @Player_Controls : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_PrimaryAttack;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_ToggleSprint;
+    private readonly InputAction m_Player_Pause;
     public struct PlayerActions
     {
         private @Player_Controls m_Wrapper;
@@ -1066,6 +1087,7 @@ public class @Player_Controls : IInputActionCollection, IDisposable
         public InputAction @PrimaryAttack => m_Wrapper.m_Player_PrimaryAttack;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @ToggleSprint => m_Wrapper.m_Player_ToggleSprint;
+        public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1096,6 +1118,9 @@ public class @Player_Controls : IInputActionCollection, IDisposable
                 @ToggleSprint.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleSprint;
                 @ToggleSprint.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleSprint;
                 @ToggleSprint.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleSprint;
+                @Pause.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1121,6 +1146,9 @@ public class @Player_Controls : IInputActionCollection, IDisposable
                 @ToggleSprint.started += instance.OnToggleSprint;
                 @ToggleSprint.performed += instance.OnToggleSprint;
                 @ToggleSprint.canceled += instance.OnToggleSprint;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
         }
     }
@@ -1284,6 +1312,7 @@ public class @Player_Controls : IInputActionCollection, IDisposable
         void OnPrimaryAttack(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnToggleSprint(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

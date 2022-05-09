@@ -4144,6 +4144,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: e1f73579-1729-4fa6-b55a-8a7670035b35
     m_ActionName: Player/ToggleSprint[/Keyboard/ctrl]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 72efaaf9-9087-4fb9-a6e6-6ae57f579f96
+    m_ActionName: Player/Pause[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -4218,6 +4222,7 @@ MonoBehaviour:
   blockRotationPlayer: 0
   desiredRotationSpeed: 0.1
   moveSpeed: 0
+  PauseMenuUI: {fileID: 0}
 --- !u!114 &6471005614632069213
 MonoBehaviour:
   m_ObjectHideFlags: 0

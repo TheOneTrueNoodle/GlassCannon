@@ -50,11 +50,14 @@ public class Third_Person_Movement : MonoBehaviour
     [HideInInspector]
     public float moveSpeed;
 
+    public GameObject PauseMenuUI;
+
     private void Awake()
     {
         currentspeed = walkspeed;
         pInput = new Player_Controls();
         pInput.Player.Jump.performed += _ => Jump();
+        pInput.Player.Pause.performed += _ => Pause();
     }
 
     private void OnEnable()
@@ -165,5 +168,11 @@ public class Third_Person_Movement : MonoBehaviour
         {
             currentspeed = walkspeed;
         }
+    }
+
+    public void Pause()
+    {
+        Time.timeScale = 0;
+        PauseMenuUI.SetActive(true);
     }
 }
