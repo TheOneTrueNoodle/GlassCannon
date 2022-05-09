@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 1531203982}
   - component: {fileID: 1531203981}
   - component: {fileID: 1531203980}
+  - component: {fileID: 2033017902}
   m_Layer: 0
   m_Name: MidAirAttack
-  m_TagString: Untagged
+  m_TagString: PlayerAttackBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,6 +96,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2033017902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1531203978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcb932efebc8d4f49b9dd60caf55e592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxDamage: 5
+  MinDamage: 7
+  DealtDamage: 0
 --- !u!1 &43307541935240628
 GameObject:
   m_ObjectHideFlags: 0
@@ -830,9 +846,10 @@ GameObject:
   - component: {fileID: 5387910440594686709}
   - component: {fileID: 7998291512011513061}
   - component: {fileID: 4056290532171054889}
+  - component: {fileID: 98015798}
   m_Layer: 0
   m_Name: AttackChain_1
-  m_TagString: Untagged
+  m_TagString: PlayerAttackBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -913,6 +930,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &98015798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 823840715666684211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcb932efebc8d4f49b9dd60caf55e592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxDamage: 5
+  MinDamage: 7
+  DealtDamage: 0
 --- !u!1 &852336812257039594
 GameObject:
   m_ObjectHideFlags: 0
@@ -925,9 +957,10 @@ GameObject:
   - component: {fileID: 2310724843881037420}
   - component: {fileID: 4162293362658851175}
   - component: {fileID: 2217080228934052498}
+  - component: {fileID: 1766206510}
   m_Layer: 0
   m_Name: AttackChain_3
-  m_TagString: Untagged
+  m_TagString: PlayerAttackBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1008,6 +1041,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1766206510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 852336812257039594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcb932efebc8d4f49b9dd60caf55e592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxDamage: 5
+  MinDamage: 7
+  DealtDamage: 0
 --- !u!1 &1060709110005526782
 GameObject:
   m_ObjectHideFlags: 0
@@ -1065,7 +1113,7 @@ Transform:
   m_GameObject: {fileID: 1119287474241441191}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.4, y: 1.4, z: 1.4}
   m_Children:
   - {fileID: 5446166796607906402}
   - {fileID: 5517506588577358966}
@@ -1106,7 +1154,7 @@ Animator:
   m_GameObject: {fileID: 1119287474241441191}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 82a2914d8f86c62488456950c8330e38, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 13eab5fd4aa0a654ca701417a75015b2, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3649,9 +3697,10 @@ GameObject:
   - component: {fileID: 1446432248955581078}
   - component: {fileID: 5956483516416097089}
   - component: {fileID: 644015856344181896}
+  - component: {fileID: 1729214145}
   m_Layer: 0
   m_Name: AttackChain_2
-  m_TagString: Untagged
+  m_TagString: PlayerAttackBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3732,6 +3781,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1729214145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6109843345707335739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcb932efebc8d4f49b9dd60caf55e592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxDamage: 5
+  MinDamage: 7
+  DealtDamage: 0
 --- !u!1 &6297707404495593359
 GameObject:
   m_ObjectHideFlags: 0
@@ -3957,9 +4021,12 @@ GameObject:
   - component: {fileID: 6471005614354389501}
   - component: {fileID: 6471005614354389500}
   - component: {fileID: 6471005614354389490}
+  - component: {fileID: 677306537}
   - component: {fileID: 6471005614354389491}
   - component: {fileID: 6471005614632069213}
   - component: {fileID: 512337851}
+  - component: {fileID: 677306538}
+  - component: {fileID: 677306532}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -4073,6 +4140,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: f7118654-b1b9-47e9-a34b-97a6e264c97f
     m_ActionName: Player/Sprint[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e1f73579-1729-4fa6-b55a-8a7670035b35
+    m_ActionName: Player/ToggleSprint[/Keyboard/ctrl]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -4096,6 +4167,20 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &677306537
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6471005614354389502}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6471005614354389491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4110,8 +4195,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 6471005614354389490}
   cam: {fileID: 0}
-  walkspeed: 6
-  runspeed: 15
+  walkspeed: 3
+  runspeed: 9
   currentspeed: 0
   gravity: -60
   jumpHeight: 3
@@ -4124,6 +4209,15 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0}
   isGrounded: 0
   turnSmoothTime: 0.1
+  anim: {fileID: 6294299578899813070}
+  allowPlayerRotation: 0.1
+  HorizontalAnimSmoothTime: 0.2
+  VerticalAnimTime: 0.2
+  StartAnimTime: 0.3
+  StopAnimTime: 0.15
+  blockRotationPlayer: 0
+  desiredRotationSpeed: 0.1
+  moveSpeed: 0
 --- !u!114 &6471005614632069213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4165,6 +4259,42 @@ MonoBehaviour:
   MidAirHitbox: {fileID: 1531203978}
   damage: 10
   attackLag: 0.15
+--- !u!114 &677306538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6471005614354389502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fcca76ee774c6d42987d90427080eaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pushPower: 1
+--- !u!114 &677306532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6471005614354389502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e1043891e1a91b46bd092f9ae499a1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHealth: 20
+  CurrentHP: 0
+  MinDamage: 5
+  MaxDamage: 7
+  Position: {x: 0, y: 0, z: 0}
+  HitBoxes:
+  - {fileID: 98015798}
+  - {fileID: 1729214145}
+  - {fileID: 1766206510}
+  - {fileID: 1845696582}
+  - {fileID: 2033017902}
 --- !u!1 &6700652317121910636
 GameObject:
   m_ObjectHideFlags: 0
@@ -4915,9 +5045,10 @@ GameObject:
   - component: {fileID: 4410761750130443027}
   - component: {fileID: 7478001735550126507}
   - component: {fileID: 6476654387147673005}
+  - component: {fileID: 1845696582}
   m_Layer: 0
   m_Name: DashAttack
-  m_TagString: Untagged
+  m_TagString: PlayerAttackBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4998,6 +5129,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1845696582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7653282614048818441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcb932efebc8d4f49b9dd60caf55e592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxDamage: 5
+  MinDamage: 7
+  DealtDamage: 0
 --- !u!1 &7876733208851128566
 GameObject:
   m_ObjectHideFlags: 0

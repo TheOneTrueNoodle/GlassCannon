@@ -127,6 +127,7 @@ public class Third_Person_Attack : MonoBehaviour
         {
             yield return null;
         }
+        HitBoxes[ThisAttackString].GetComponent<Hitbox_Detection>().DealtDamage = false;
         HitBoxes[ThisAttackString].SetActive(false);
 
         starttime = Time.time;
@@ -152,6 +153,7 @@ public class Third_Person_Attack : MonoBehaviour
         {
             yield return null;
         }
+        HitBoxes[ThisAttackString].GetComponent<Hitbox_Detection>().DealtDamage = false;
         HitBoxes[ThisAttackString].SetActive(false);
 
         starttime = Time.time;
@@ -172,6 +174,7 @@ public class Third_Person_Attack : MonoBehaviour
         {
             yield return null;
         }
+        MidAirHitbox.GetComponent<Hitbox_Detection>().DealtDamage = false;
         MidAirHitbox.SetActive(false);
 
         starttime = Time.time;

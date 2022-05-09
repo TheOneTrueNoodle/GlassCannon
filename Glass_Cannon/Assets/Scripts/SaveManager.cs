@@ -7,8 +7,10 @@ using System;
 [Serializable]
 public struct GameStatus
 {
-    public int Health;
-    public int Damage;
+    public int MaxHealth;
+    public int CurrentHP;
+    public int MinDamage;
+    public int MaxDamage;
     public Vector3 Position; 
 }
 
@@ -29,8 +31,9 @@ public class SaveManager : MonoBehaviour
         }
         else
         {
-            gameStatus.Health = 2;
-            gameStatus.Damage = 5;
+            gameStatus.MaxHealth = 20;
+            gameStatus.MinDamage = 5;
+            gameStatus.MinDamage = 7;
             gameStatus.Position = new Vector3(0, 0, 0);
         }
     }
@@ -52,9 +55,13 @@ public class SaveManager : MonoBehaviour
 
     private void Update()
     {
-        gameStatus.Health = PlayerData.Health;
-        gameStatus.Damage = PlayerData.Damage;
+        gameStatus.MaxHealth = PlayerData.MaxHealth;
+        gameStatus.CurrentHP = PlayerData.CurrentHP;
+        gameStatus.MinDamage = PlayerData.MinDamage;
+        gameStatus.MaxDamage = PlayerData.MaxDamage;
         gameStatus.Position = PlayerData.Position;
+
+        Debug.Log(filePath);
     }
 
     private void OnApplicationQuit()

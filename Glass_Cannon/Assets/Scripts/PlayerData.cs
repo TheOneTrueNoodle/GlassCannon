@@ -5,14 +5,18 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerData
 {
+    public int MaxHealth;
     public int Health;
-    public int Damage;
+    public int MinDamage;
+    public int MaxDamage;
     public float[] position;
 
     public PlayerData (Player Player)
     {
-        Health = Player.Health;
-        Damage = Player.Damage;
+        MaxHealth = Player.MaxHealth;
+        Health = Player.CurrentHP;
+        MinDamage = Player.MinDamage;
+        MaxDamage = Player.MaxDamage;
 
         position = new float[3];
         position[0] = Player.transform.position.x;
