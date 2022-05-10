@@ -10,14 +10,14 @@ public class Destructable : MonoBehaviour
 
     private void Start()
     {
-        gameObject.transform.position = Data.DestructablePositions[ID];
-        gameObject.transform.localScale = Data.DestructableScale[ID];
+        //gameObject.transform.position = Data.DestructablePositions[ID];
+        //gameObject.transform.localScale = Data.DestructableScale[ID];
     }
 
     public void FixedUpdate()
     {
-        Data.DestructablePositions[ID] = gameObject.transform.position;
-        Data.DestructableScale[ID] = gameObject.transform.localScale;
+        //Data.DestructablePositions[ID] = gameObject.transform.position;
+        //Data.DestructableScale[ID] = gameObject.transform.localScale;
     }
 
     public void breakObject()

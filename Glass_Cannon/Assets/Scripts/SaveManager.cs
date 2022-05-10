@@ -56,6 +56,12 @@ public class SaveManager : MonoBehaviour
             gameStatus.MinDamage = 5;
             gameStatus.MaxDamage = 7;
             gameStatus.Position = new Vector3(4.75f, -2, 8.75f);
+
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            player.GetComponent<Player>().MaxHealth = gameStatus.MaxHealth;
+            player.GetComponent<Player>().CurrentHP = gameStatus.MaxHealth;
+            player.GetComponent<Player>().MinDamage = gameStatus.MinDamage;
+            player.GetComponent<Player>().MaxDamage = gameStatus.MaxDamage;
         }
     }
 
