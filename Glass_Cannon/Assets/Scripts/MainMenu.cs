@@ -36,7 +36,7 @@ public class MainMenu : MonoBehaviour
 
     public void ReturnToMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene(0);
     }
 
     public void UnpauseGame()

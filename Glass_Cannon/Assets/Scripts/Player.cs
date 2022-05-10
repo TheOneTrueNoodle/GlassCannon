@@ -15,6 +15,8 @@ public class Player : MonoBehaviour
 
     public GameObject DeathUI;
 
+    public bool Died;
+
     private void Start()
     {
         CurrentHP = MaxHealth; 
@@ -31,10 +33,10 @@ public class Player : MonoBehaviour
 
         healthBar.SetHealth((int)CurrentHP, (int)MaxHealth);
 
-        if(CurrentHP <= 0)
+        if(CurrentHP <= 0 && Died != true)
         {
-            Time.timeScale = 0;
-            DeathUI.SetActive(true);
+            Die();
+            Died = true;
         }
     }
 
@@ -43,8 +45,17 @@ public class Player : MonoBehaviour
         CurrentHP -= Damage;
     }
 
+    public void Fall(int Damage)
+    {
+        Vector3 RespawnPoint = new Vector3(4.75f, -2,8.75f);
+        transform.position = RespawnPoint;
+        Position = RespawnPoint;
+        CurrentHP -= Damage;
+    }
+
     public void Die()
     {
-        Destroy(gameObject);
+        Time.timeScale = 0;
+        DeathUI.SetActive(true);
     }
 }

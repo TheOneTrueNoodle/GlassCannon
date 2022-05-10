@@ -30,9 +30,16 @@ public class SaveManager : MonoBehaviour
         {
             string loadedJson = File.ReadAllText(filePath + "/" + FILE_NAME);
             gameStatus = JsonUtility.FromJson<GameStatus>(loadedJson);
-            GameObject.FindGameObjectWithTag("Player").transform.position = gameStatus.Position;
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            player.transform.position = gameStatus.Position;
+            player.GetComponent<Player>().MaxHealth = gameStatus.MaxHealth;
+            player.GetComponent<Player>().CurrentHP = gameStatus.CurrentHP;
+            player.GetComponent<Player>().MinDamage = gameStatus.MinDamage;
+            player.GetComponent<Player>().MaxDamage = gameStatus.MaxDamage;
+
             if (DeathUI.activeInHierarchy)
             {
+                player.GetComponent<Player>().Died = false;
                 Time.timeScale = 1;
                 DeathUI.SetActive(false);
             }
@@ -47,8 +54,8 @@ public class SaveManager : MonoBehaviour
             gameStatus.MaxHealth = 20;
             gameStatus.CurrentHP = 20;
             gameStatus.MinDamage = 5;
-            gameStatus.MinDamage = 7;
-            gameStatus.Position = new Vector3(0, 0, 0);
+            gameStatus.MaxDamage = 7;
+            gameStatus.Position = new Vector3(4.75f, -2, 8.75f);
         }
     }
 
@@ -59,11 +66,18 @@ public class SaveManager : MonoBehaviour
         gameStatus.MaxHealth = 20;
         gameStatus.CurrentHP = 20;
         gameStatus.MinDamage = 5;
-        gameStatus.MinDamage = 7;
-        gameStatus.Position = new Vector3(0, 0, 0);
+        gameStatus.MaxDamage = 7;
+        gameStatus.Position = new Vector3(4.75f, -2, 8.75f);
 
-        SaveGameStatus();
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        player.GetComponent<Player>().MaxHealth = gameStatus.MaxHealth;
+        player.GetComponent<Player>().CurrentHP = gameStatus.MaxHealth;
+        player.GetComponent<Player>().MinDamage = gameStatus.MinDamage;
+        player.GetComponent<Player>().MaxDamage = gameStatus.MaxDamage;
+
         LoadGameStatus();
+        Time.timeScale = 1;
+        SaveGameStatus();
     }
 
     public void SaveGameStatus ()
